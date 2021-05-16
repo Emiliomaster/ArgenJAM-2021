@@ -32,6 +32,13 @@ public class NpcController2 : MonoBehaviour
     Color colorInfected;
     Color colorNormal;
 
+    float colorTime;
+
+    public Vector2 posSinal;
+
+    public Image borderDamage;
+
+
     //Waves
     public int countNpcState;
 
@@ -40,9 +47,12 @@ public class NpcController2 : MonoBehaviour
 
     Transform exitRef;
 
+
     public Animator renderAnimation;
     void Start()
     {
+        //borderDamage = Ui.FindGameObjectWithTag("DamageSignal");
+        colorTime = 0.5f;
         renderAnimation = GetComponent<Animator>();
         speed = 2f;
         chilSpriteRef = GetComponentInChildren<SpriteRenderer>();
@@ -66,7 +76,14 @@ public class NpcController2 : MonoBehaviour
         switch (states)
         {
             case 0: //sano
-                chilSpriteRef.material.color = colorNormal;
+                if (colorTime <= 0)
+                {
+                    chilSpriteRef.color = colorNormal;
+                    Debug.Log("Cambio color");
+                    colorTime = 0.5f;
+                }
+                else
+                    colorTime -= Time.deltaTime;
                 if (!noSite)
                 {
                     placeRef = SelectPosition();
@@ -78,7 +95,13 @@ public class NpcController2 : MonoBehaviour
                 }
                 break;
             case 1: //Infectado
-                chilSpriteRef.material.color = colorInfected;
+                if (colorTime <= 0)
+                {
+                    chilSpriteRef.color = colorInfected;
+                    colorTime = 0.5f;
+                }
+                else
+                    colorTime -= Time.deltaTime;
                 if (!noSite)
                 {
                     placeRef = SelectPosition();
@@ -96,6 +119,7 @@ public class NpcController2 : MonoBehaviour
                     GameObject.FindGameObjectWithTag("Virus").GetComponent<VirusController>().amountInfected--;
                     countNpcState++;
                     states = 0;
+                    colorTime = 0;
                 }
                 break;
             case 2:
@@ -153,7 +177,13 @@ public class NpcController2 : MonoBehaviour
                 break;
             case "Player":
                 if (states ==1) 
-                col.gameObject.GetComponent<Defeat>().health -= 1;
+                { 
+                    col.gameObject.GetComponent<Defeat>().health -= 1;
+                }
+                break;
+            case "Bullet":
+                //chilSpriteRef.color = colorRed;
+                //Debug.Log("Color Rjo");
                 break;
             default:
                 break;

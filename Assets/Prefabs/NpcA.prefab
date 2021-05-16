@@ -74,6 +74,8 @@ MonoBehaviour:
   noSite: 0
   waitTimeMin: 0
   waitTimeMax: 0
+  posSinal: {x: 0, y: 0}
+  borderDamage: {fileID: 0}
   countNpcState: 0
   states: 0
   renderAnimation: {fileID: 0}

@@ -18,4 +18,14 @@ public class LinksURL : MonoBehaviour
     {
         Application.OpenURL("https://www.instagram.com/franja.fln/?hl=es-la");
     }
+
+    public void LinksFede()
+    {
+        Application.OpenURL("https://www.instagram.com/fede.ces_guitar/?hl=es-la");
+    }
+
+    public void LinksAdrian()
+    {
+        Application.OpenURL("https://www.instagram.com/adrianpauken/?hl=es-la");
+    }
 }
