@@ -23,7 +23,7 @@ public class Defeat : MonoBehaviour
 
     void CheckDefeatState()
     {
-        if (infectionSlider.value == infectionSlider.maxValue || angerSlider.value == angerSlider.maxValue || healthSlider.value == 0)
+        if (infectionSlider.value >= infectionSlider.maxValue || angerSlider.value >= angerSlider.maxValue -0.1f || healthSlider.value <= 0)
         {
             panel.SetActive(true);
             defeatMenu.SetActive(true);

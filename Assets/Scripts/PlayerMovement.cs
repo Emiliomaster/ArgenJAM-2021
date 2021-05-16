@@ -6,16 +6,22 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5.0f;
 
-    // Start is called before the first frame update
+    public GameObject patientZeroRef;
+    Transform pZeroTrans;
+    float distancePZ;
+    public GameObject signal;
+    
+
     void Start()
     {
-        
+        patientZeroRef = GameObject.FindGameObjectWithTag("PatientZ");
+        pZeroTrans = patientZeroRef.transform;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Movement();
+        DetectedPZ();
     }
 
     void Movement()
@@ -36,5 +42,17 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.Translate(Vector2.right * speed * Time.deltaTime, Space.World);
         }
+    }
+
+    void DetectedPZ()
+    {
+        distancePZ = Vector2.Distance(pZeroTrans.position, transform.position);
+        if (distancePZ <= 2.5f)
+        {
+            signal.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+        }
+        else
+            signal.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
+
     }
 }

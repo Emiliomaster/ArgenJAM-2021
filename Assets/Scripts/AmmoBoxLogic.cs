@@ -53,12 +53,18 @@ public class AmmoBoxLogic : MonoBehaviour
         {
             case "Player":
                 if (col.gameObject.GetComponent<Shooting>().bulletCount < 12)
-                gameObject.SetActive(false);
+                {
+                    col.gameObject.GetComponent<Shooting>().bulletCount = 12;
+                    gameObject.SetActive(false);
+                }
+                    
                 break;
             default:
                 break;
         }
     }
+
+
 
     void Spawn()
     {

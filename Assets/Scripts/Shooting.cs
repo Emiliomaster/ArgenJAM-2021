@@ -14,7 +14,7 @@ public class Shooting : MonoBehaviour
 
     void Start()
     {
-        bulletCount = 12;
+        bulletCount = 100;
     }
     // Update is called once per frame
     void Update()
@@ -32,19 +32,4 @@ public class Shooting : MonoBehaviour
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);
     }
-
-
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        string typeTag = col.gameObject.tag;
-        switch (typeTag)
-        {
-            case "AmmoBox":
-                bulletCount = col.gameObject.GetComponent<AmmoBoxLogic>().maxAmmo;
-                break;
-            default:
-                break;
-        }
-    }
-
 }

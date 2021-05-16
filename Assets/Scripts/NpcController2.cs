@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+//Implemento este
 public class NpcController2 : MonoBehaviour
 {
     public Slider angerSlider;
     public Slider infectedSlider;
 
     public int health;
-    public float speedInfected;
+    public float speed;
     public int selectSite;
     Vector3 curretPos;
 
     public float timeInPlace;
-    public float[] countTime;
 
     public GameObject[] positionsSite;
     public GameObject[] sites;
@@ -30,24 +31,29 @@ public class NpcController2 : MonoBehaviour
     SpriteRenderer chilSpriteRef;
     Color colorInfected;
     Color colorNormal;
-    bool isInfected;
 
+    //Waves
+    public int countNpcState;
 
     public int states;
     int posInArray;
 
+    Transform exitRef;
+
     void Start()
     {
-        speedInfected = 3f;
+        speed = 2f;
         chilSpriteRef = GetComponentInChildren<SpriteRenderer>();
-        colorNormal = chilSpriteRef.color; 
+        colorNormal = chilSpriteRef.color;
         colorInfected = new Color(0, 1, 0); //verde
+        //virusCount = GameObject.FindGameObjectWithTag("Virus").GetComponent<VirusController>().amountInfected;
 
         angerSlider = GameObject.FindGameObjectWithTag("AngerSlider").GetComponent<Slider>();
         infectedSlider = GameObject.FindGameObjectWithTag("InfectionSlider").GetComponent<Slider>();
+        exitRef = GameObject.FindGameObjectWithTag("Exit").transform;
 
-        waitTimeMin = 5;
-        waitTimeMax = 8;
+        waitTimeMin = 10;
+        waitTimeMax = 50;
         timeInPlace = Random.Range(waitTimeMin, waitTimeMax);
         curretPos = transform.position;
         sites = GameObject.FindGameObjectsWithTag("Site");
@@ -58,6 +64,7 @@ public class NpcController2 : MonoBehaviour
         switch (states)
         {
             case 0: //sano
+                chilSpriteRef.material.color = colorNormal;
                 if (!noSite)
                 {
                     placeRef = SelectPosition();
@@ -79,28 +86,27 @@ public class NpcController2 : MonoBehaviour
                 {
                     GoToPlace(placeRef);
                 }
+
                 if (health <= 0)
                 {
                     infectedSlider.value--;
-                    states = 2;
+                    health = 2;
+                    GameObject.FindGameObjectWithTag("Virus").GetComponent<VirusController>().amountInfected--;
+                    countNpcState++;
+                    states = 0;
                 }
                 break;
-            case 2://Inmune
+            case 2:
                 chilSpriteRef.material.color = colorNormal;
-                if (!noSite)
-                {
-                    placeRef = SelectPosition();
-                    noSite = true;
-                }
-                else
-                {
-                    GoToPlace(placeRef);
-                }
+                transform.position = Vector2.MoveTowards(transform.position, exitRef.position, speed * Time.deltaTime);
+                directionLook = new Vector2(sites[selectSite].gameObject.transform.position.x - transform.position.x,
+                                            sites[selectSite].gameObject.transform.position.y - transform.position.y);
+                transform.up = directionLook;
                 break;
             default:
                 break;
         }
-
+        CountInfectionNpc();
     }
 
     GameObject SelectPosition()
@@ -130,19 +136,29 @@ public class NpcController2 : MonoBehaviour
                         break;
                     }
                 }
-
             }
-
         }
         return posRef;
     }
 
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        string typeTag = col.gameObject.tag;
+        switch (typeTag)
+        {
+            case "Exit":
+                Destroy(gameObject);
+                break;
+            default:
+                break;
+        }
+    }
     void GoToPlace(GameObject posRef)
     {
         directionLook = new Vector2(sites[selectSite].gameObject.transform.position.x - transform.position.x,
                                     sites[selectSite].gameObject.transform.position.y - transform.position.y);
         transform.up = directionLook;
-        curretPos = Vector2.MoveTowards(transform.position, posRef.transform.position, speedInfected * Time.deltaTime);
+        curretPos = Vector2.MoveTowards(transform.position, posRef.transform.position, speed * Time.deltaTime);
         transform.position = curretPos;
         if (transform.position == posRef.transform.position)
         {
@@ -163,4 +179,12 @@ public class NpcController2 : MonoBehaviour
             }
         }
     }
+    void CountInfectionNpc()
+    {
+        if (countNpcState == 3)
+        {
+            states = 2;
+        }
+    }
+    
 }

@@ -9,18 +9,18 @@ public class PauseMenu : MonoBehaviour
     public GameObject panel;
     public bool GameIsPaused = false;
 
+    public GameObject defeatMenu;
+
     public string mainMenu;
-    // Start is called before the first frame update
     void Start()
     {
         Time.timeScale = 0f;
         playMenuUI.SetActive(true);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !playMenuUI.activeInHierarchy && !defeatMenu.activeInHierarchy)
         {
             if (GameIsPaused)
             {

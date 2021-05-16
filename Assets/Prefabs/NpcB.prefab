@@ -62,17 +62,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angerSlider: {fileID: 0}
+  infectedSlider: {fileID: 0}
   health: 2
-  speedInfected: 2
+  speed: 0
   selectSite: 0
   timeInPlace: 0
-  countTime: []
   positionsSite: []
   sites: []
   inSite: 0
   noSite: 0
   waitTimeMin: 0
   waitTimeMax: 0
+  countNpcState: 0
   states: 0
 --- !u!1 &6462254770711428342
 GameObject:
@@ -98,13 +99,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6462254770711428342}
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6462254770203484193}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6462254770711428340
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -144,7 +145,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -5452044767980939821, guid: 619a056d670d79e468c1782c5d4aa1f3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

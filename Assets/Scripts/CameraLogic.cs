@@ -28,7 +28,7 @@ public class CameraLogic : MonoBehaviour
         posPlayerY = playerRef.transform.position.y;
         posRef.x = posPlayerX;
         posRef.y = posPlayerY;
-        posRef.z = -15f;
+        posRef.z = -10f;
         transform.position = posRef;
         transform.LookAt(playerRef.transform);
     }

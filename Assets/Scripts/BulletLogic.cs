@@ -10,12 +10,15 @@ public class BulletLogic : MonoBehaviour
         string typeTag = col.gameObject.tag;
         switch (typeTag)
         {
-            case "NPC" :
+            case "NPC":
                 if(col.gameObject.GetComponent<NpcController2>().states == 0 || 
                    col.gameObject.GetComponent<NpcController2>().states == 2)
                     col.gameObject.GetComponent<NpcController2>().angerSlider.value += 1;
                 else if(col.gameObject.GetComponent<NpcController2>().states == 1)
                     col.gameObject.GetComponent<NpcController2>().health -= 1;
+                break;
+            case "PatientZ":
+                col.gameObject.GetComponent<PatientZeroController>().health -= 1;
                 break;
             default:
                 break;
