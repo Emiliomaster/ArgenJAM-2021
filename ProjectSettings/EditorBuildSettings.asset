@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: d657df244338b754b9f24d6a68ded97c
   - enabled: 1
-    path: Assets/Scenes/NPC Test.unity
-    guid: 45eb14c9c9fb0c646bd48d95b1f53a4a
+    path: Assets/Scenes/Virusteca.unity
+    guid: dbab01df527a92043a817fb73bda0793
   m_configObjects: {}

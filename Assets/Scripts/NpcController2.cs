@@ -40,8 +40,10 @@ public class NpcController2 : MonoBehaviour
 
     Transform exitRef;
 
+    public Animator renderAnimation;
     void Start()
     {
+        renderAnimation = GetComponent<Animator>();
         speed = 2f;
         chilSpriteRef = GetComponentInChildren<SpriteRenderer>();
         colorNormal = chilSpriteRef.color;
@@ -53,7 +55,7 @@ public class NpcController2 : MonoBehaviour
         exitRef = GameObject.FindGameObjectWithTag("Exit").transform;
 
         waitTimeMin = 10;
-        waitTimeMax = 50;
+        waitTimeMax = 20;
         timeInPlace = Random.Range(waitTimeMin, waitTimeMax);
         curretPos = transform.position;
         sites = GameObject.FindGameObjectsWithTag("Site");
@@ -122,7 +124,7 @@ public class NpcController2 : MonoBehaviour
             positionsSite = sites[selectSite].GetComponent<InfectionSites>().positions;
             //Debug.Log("Busca en: " + sites[selectSite].name);
 
-            for (int i = 0; i <= positionsSite.Length-1; ++i)
+            for (int i = 0; i <= positionsSite.Length - 1; ++i)
             {
                 if (!inSite)
                 {
@@ -141,7 +143,7 @@ public class NpcController2 : MonoBehaviour
         return posRef;
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    void OnCollisionEnter2D(Collision2D col)
     {
         string typeTag = col.gameObject.tag;
         switch (typeTag)
@@ -149,12 +151,17 @@ public class NpcController2 : MonoBehaviour
             case "Exit":
                 Destroy(gameObject);
                 break;
+            case "Player":
+                if (states ==1) 
+                col.gameObject.GetComponent<Defeat>().health -= 1;
+                break;
             default:
                 break;
         }
     }
     void GoToPlace(GameObject posRef)
     {
+        renderAnimation.SetBool("IsWalking", true);
         directionLook = new Vector2(sites[selectSite].gameObject.transform.position.x - transform.position.x,
                                     sites[selectSite].gameObject.transform.position.y - transform.position.y);
         transform.up = directionLook;
@@ -166,7 +173,8 @@ public class NpcController2 : MonoBehaviour
         }
         if (inSite)
         {
-            if( timeInPlace <= 0)
+            renderAnimation.SetBool("IsWalking", false);
+            if (timeInPlace <= 0)
             {
                 timeInPlace = Random.Range(waitTimeMin, waitTimeMax);
                 inSite = false;
@@ -186,5 +194,4 @@ public class NpcController2 : MonoBehaviour
             states = 2;
         }
     }
-    
 }

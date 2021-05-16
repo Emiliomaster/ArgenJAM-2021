@@ -12,6 +12,7 @@ public class AmmoBoxLogic : MonoBehaviour
     public float timer;
     public int positionRandom;
     public int ammoCount;
+    public Shooting playerAmmoCount;
     void TakePositions()
     {
         for (int i = 0;i <= ammoBoxPositions.Length -1; i++)
@@ -46,7 +47,7 @@ public class AmmoBoxLogic : MonoBehaviour
         ammoCount--;
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    void OnTriggerStay2D(Collider2D col)
     {
         string typeTag = col.gameObject.tag;
         switch (typeTag)
@@ -54,17 +55,14 @@ public class AmmoBoxLogic : MonoBehaviour
             case "Player":
                 if (col.gameObject.GetComponent<Shooting>().bulletCount < 12)
                 {
-                    col.gameObject.GetComponent<Shooting>().bulletCount = 12;
+                    col.gameObject.GetComponent<Shooting>().bulletCount = maxAmmo;
                     gameObject.SetActive(false);
                 }
-                    
                 break;
             default:
                 break;
         }
     }
-
-
 
     void Spawn()
     {
@@ -76,7 +74,7 @@ public class AmmoBoxLogic : MonoBehaviour
             }
             else
             {
-                timer = 10f;
+                timer = 3f;
                 ammoCount = 1;
             }
         }

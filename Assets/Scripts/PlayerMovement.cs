@@ -5,12 +5,11 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5.0f;
-
     public GameObject patientZeroRef;
     Transform pZeroTrans;
     float distancePZ;
     public GameObject signal;
-    
+
 
     void Start()
     {
@@ -22,6 +21,12 @@ public class PlayerMovement : MonoBehaviour
     {
         Movement();
         DetectedPZ();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Movement();
     }
 
     void Movement()
@@ -43,7 +48,6 @@ public class PlayerMovement : MonoBehaviour
             transform.Translate(Vector2.right * speed * Time.deltaTime, Space.World);
         }
     }
-
     void DetectedPZ()
     {
         distancePZ = Vector2.Distance(pZeroTrans.position, transform.position);

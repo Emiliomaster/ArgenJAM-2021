@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PatientZeroController : MonoBehaviour
 {
     public int health;
@@ -24,9 +25,15 @@ public class PatientZeroController : MonoBehaviour
 
     Transform exitRef;
 
+    public GameObject victoryMenu;
+    public GameObject panel;
+
+
+    public Animator renderAnimation;
 
     void Start()
     {
+        //renderAnimation = GetComponent<Animator>();
         health = 4;
         speed = 2f;
         waitTimeMin = 10;
@@ -42,12 +49,9 @@ public class PatientZeroController : MonoBehaviour
     {
         if (health <= 0)
         {
-            transform.position = Vector2.MoveTowards(transform.position, exitRef.position, speed * Time.deltaTime);
-            directionLook = new Vector2(sites[selectSite].gameObject.transform.position.x - transform.position.x,
-                                        sites[selectSite].gameObject.transform.position.y - transform.position.y);
-            transform.up = directionLook;
-            //---------------->GANASTE<---------------
-            Debug.Log("Ganaste KPO!");
+            panel.SetActive(true);
+            victoryMenu.SetActive(true);
+            Time.timeScale = 0f;
         }
         else
         {
@@ -65,6 +69,7 @@ public class PatientZeroController : MonoBehaviour
 
     void GoToPlace(GameObject posRef)
     {
+        renderAnimation.SetBool("IsWalking", true);
         directionLook = new Vector2(sites[selectSite].gameObject.transform.position.x - transform.position.x,
                                     sites[selectSite].gameObject.transform.position.y - transform.position.y);
         transform.up = directionLook;
@@ -76,6 +81,7 @@ public class PatientZeroController : MonoBehaviour
         }
         if (inSite)
         {
+            renderAnimation.SetBool("IsWalking", false);
             if (timeInPlace <= 0)
             {
                 timeInPlace = Random.Range(waitTimeMin, waitTimeMax);

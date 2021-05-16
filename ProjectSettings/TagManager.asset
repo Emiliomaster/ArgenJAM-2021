@@ -10,10 +10,6 @@ TagManager:
   - AmmoBox
   - AngerSlider
   - InfectionSlider
-  - Exit
-  - Virus
-  - 'PatientZero '
-  - PatientZ
   layers:
   - Default
   - TransparentFX

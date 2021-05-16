@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4362676021402601952}
   m_Layer: 0
   m_Name: Virus
-  m_TagString: Untagged
+  m_TagString: Virus
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,6 +43,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ecd0511e1d02764b838079dccf59522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  infectionSlider: {fileID: 0}
   people: []
-  selectedNpcs: []
+  infectedNpcsList: []
+  wave1: []
+  wave2: []
+  wave3: []
+  minIntWave1: 3
+  maxIntWave1: 7
+  minIntWave2: 5
+  maxIntWave2: 9
+  minIntWave3: 2
+  maxIntWave3: 4
+  timerWave: 0
+  amountInfected: 0
   timeSpread: 0

@@ -44,11 +44,11 @@ public class VirusController : MonoBehaviour
         timeSpread = 5f;
         people = GameObject.FindGameObjectsWithTag("NPC");
         infectionSlider = GameObject.FindGameObjectWithTag("InfectionSlider").GetComponent<Slider>();
-        infectionSlider.maxValue = (people.Length * 80) / 100;
+        infectionSlider.maxValue = (people.Length * 50) / 100;
         LoadWave1();
         Debug.Log(wave1.Count);
     }
-    
+
 
     void LoadWave1()
     {
@@ -77,7 +77,7 @@ public class VirusController : MonoBehaviour
         switch (numWave)
         {
             case 1:
-                if (timeSpread <=0)
+                if (timeSpread <= 0)
                 {
                     amountNpc = Random.Range(minIntWave1, maxIntWave1);
                     if (amountNpc > wave1.Count)
@@ -91,7 +91,7 @@ public class VirusController : MonoBehaviour
                     else
                     {
                         int z = 0;
-                        for (int i = 0; i <= amountNpc-1; i++)
+                        for (int i = 0; i <= amountNpc - 1; i++)
                         {
                             countNpcInfected = wave1[z].GetComponent<NpcController2>().countNpcState;
                             if (countNpcInfected <= 0)
